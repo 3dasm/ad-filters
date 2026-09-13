@@ -1,0 +1,45 @@
+[Adblock Plus 2.0]
+! Title: Search Engine Ads - Startpage and DuckDuckGo
+! Description: Block Startpage ad frames and hide search ads on both engines.
+! Version: 2026.09.13.3
+! Scope: startpage.com and duckduckgo.com, including their subdomains.
+! Startpage rules checked against user-provided Chrome page HTML.
+! DuckDuckGo rules adapted from EasyList; live browser blocking is not verified.
+! Vivaldi: Enable Block Trackers and Ads, then open Manage Sources.
+! Under Ad Blocking Sources, use Add List to import this file.
+! Disable "Allow ads from our partners" and reload the search page.
+!
+! --- Startpage ---
+! Target: https://www.startpage.com/do/search?q=parallels+pricing&segment=startpage.vivaldi
+!
+! Block the ad iframe requests, including /ads?... and /ads/i/iframe.html.
+||startpage.com/sp/afs/ads^$subdocument,domain=startpage.com
+!
+! Collapse the top and bottom ad containers and their reserved space.
+startpage.com###gcsa-top
+startpage.com###gcsa-bottom
+!
+! Fallback for ad frames moved outside those containers; language-independent.
+startpage.com##iframe[src^="https://www.startpage.com/sp/afs/ads"]
+!
+! Fallback inside the Startpage-hosted ad iframe, confirmed in its copied HTML.
+startpage.com###adBlock[role="region"]
+!
+! --- DuckDuckGo ---
+! Source: EasyList, retrieved 2026-09-13; domain lists narrowed to duckduckgo.com.
+! https://github.com/easylist/easylist/blob/master/easylist/easylist_specific_hide.txt
+!
+! Search ads and sponsored results, including sidebar ads and older layouts.
+duckduckgo.com###ads
+duckduckgo.com##.highlight_sponsored
+duckduckgo.com##.result--ad > .result__body
+duckduckgo.com##.sponsored
+duckduckgo.com##[data-layout$="_ads"]
+duckduckgo.com##[data-layout="ad"]
+duckduckgo.com##.js-results-ads
+duckduckgo.com##.js-sidebar-ads > .nrn-react-div
+duckduckgo.com##.results--ads
+!
+! Sections explicitly marked as ads, including sponsored product sections.
+duckduckgo.com##.vertical-section-divider:has(span.badge--ad-wrap)
+duckduckgo.com##section > div[class]:has(button[data-testid="ad-badge-ad-tooltip-products"])
